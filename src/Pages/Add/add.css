@@ -1,0 +1,16 @@
+.form-cont {
+    display: flex;
+    flex-direction: column;
+}
+.form-cont-basic {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+p{
+    background-color: aliceblue;
+    margin: 5px;
+}
+.add-btn {
+    /* background-color: burlywood !important; */
+}
