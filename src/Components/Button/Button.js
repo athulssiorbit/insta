@@ -4,34 +4,32 @@ import "../../App.css";
 
 const Button = ({ listData }) => {
   console.log(listData);
-  const [likesBefore, setLikesBefore] = useState([])
-  const [likesAfter, setLikesAfter] = useState([])
-
+  const [likesBefore, setLikesBefore] = useState([]);
+  const [likesAfter, setLikesAfter] = useState([]);
+  const [selection, setSelection] = useState("ff");
 
   useEffect(() => {
-    //getLikesBefore()
-  }, [])
+    getLikesBefore()
+  }, []);
 
   useEffect(() => {
     const unmatchedIndexes = [];
-    const values = [1,2,4,8,16,32,64,128,256,512]
+    const values = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512];
     for (let i = 0; i < likesBefore.length; i++) {
       if (likesBefore[i] !== likesAfter[i]) {
         unmatchedIndexes.push(i);
       }
     }
     let position = 0;
-    position = unmatchedIndexes.map((item)=>{
-      return values[item] + position
-    })
+    position = unmatchedIndexes.map((item) => {
+      return values[item] + position;
+    });
     const sum = position.reduce((total, num) => total + num, 0);
-    console.log(position,"position of the item",listData.list[sum-1]);
-  }, [likesAfter])
-
-
+    console.log(position, "position of the item", listData.list[sum - 1]);
+    setSelection(listData.list[sum - 1]);
+  }, [likesAfter]);
 
   const getLikesBefore = () => {
-
     const genOpt = (code, key) => {
       const options = {
         method: "GET",
@@ -43,34 +41,97 @@ const Button = ({ listData }) => {
           "X-RapidAPI-Host": "instagram28.p.rapidapi.com",
         },
       };
-      return options
-    }
+      return options;
+    };
 
     async function fetchData() {
       try {
-        const [data1, data2, data3, data4, data5, data6, data7, data8, data9, data10] = await Promise.all([
-          listData.posts[0] && axios.request(genOpt(listData.posts[0].id, listData.posts[0].key)).then(res => res.data.items[0].like_count),
-          listData.posts[1] && axios.request(genOpt(listData.posts[1].id, listData.posts[1].key)).then(res => res.data.items[0].like_count),
-          listData.posts[2] && axios.request(genOpt(listData.posts[2].id, listData.posts[2].key)).then(res => res.data.items[0].like_count),
-          listData.posts[3] && axios.request(genOpt(listData.posts[3].id, listData.posts[3].key)).then(res => res.data.items[0].like_count),
-          listData.posts[4] && axios.request(genOpt(listData.posts[4].id, listData.posts[4].key)).then(res => res.data.items[0].like_count),
-          listData.posts[5] && axios.request(genOpt(listData.posts[5].id, listData.posts[5].key)).then(res => res.data.items[0].like_count),
-          listData.posts[6] && axios.request(genOpt(listData.posts[6].id, listData.posts[6].key)).then(res => res.data.items[0].like_count),
-          listData.posts[7] && axios.request(genOpt(listData.posts[7].id, listData.posts[7].key)).then(res => res.data.items[0].like_count),
-          listData.posts[8] && axios.request(genOpt(listData.posts[8].id, listData.posts[8].key)).then(res => res.data.items[0].like_count),
-          listData.posts[9] && axios.request(genOpt(listData.posts[9].id, listData.posts[9].key)).then(res => res.data.items[0].like_count),
+        const [
+          data1,
+          data2,
+          data3,
+          data4,
+          data5,
+          data6,
+          data7,
+          data8,
+          data9,
+          data10,
+        ] = await Promise.all([
+          listData.posts[0] &&
+            axios
+              .request(genOpt(listData.posts[0].id, listData.posts[0].key))
+              .then((res) => res.data.items[0].like_count),
+          listData.posts[1] &&
+            axios
+              .request(genOpt(listData.posts[1].id, listData.posts[1].key))
+              .then((res) => res.data.items[0].like_count),
+          listData.posts[2] &&
+            axios
+              .request(genOpt(listData.posts[2].id, listData.posts[2].key))
+              .then((res) => res.data.items[0].like_count),
+          listData.posts[3] &&
+            axios
+              .request(genOpt(listData.posts[3].id, listData.posts[3].key))
+              .then((res) => res.data.items[0].like_count),
+          listData.posts[4] &&
+            axios
+              .request(genOpt(listData.posts[4].id, listData.posts[4].key))
+              .then((res) => res.data.items[0].like_count),
+          listData.posts[5] &&
+            axios
+              .request(genOpt(listData.posts[5].id, listData.posts[5].key))
+              .then((res) => res.data.items[0].like_count),
+          listData.posts[6] &&
+            axios
+              .request(genOpt(listData.posts[6].id, listData.posts[6].key))
+              .then((res) => res.data.items[0].like_count),
+          listData.posts[7] &&
+            axios
+              .request(genOpt(listData.posts[7].id, listData.posts[7].key))
+              .then((res) => res.data.items[0].like_count),
+          listData.posts[8] &&
+            axios
+              .request(genOpt(listData.posts[8].id, listData.posts[8].key))
+              .then((res) => res.data.items[0].like_count),
+          listData.posts[9] &&
+            axios
+              .request(genOpt(listData.posts[9].id, listData.posts[9].key))
+              .then((res) => res.data.items[0].like_count),
         ]);
         console.log("data from all");
-        const allLikes = [data1, data2, data3, data4, data5, data6, data7, data8, data9, data10]
-        console.log(data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, "data from all");
+        const allLikes = [
+          data1,
+          data2,
+          data3,
+          data4,
+          data5,
+          data6,
+          data7,
+          data8,
+          data9,
+          data10,
+        ];
+        console.log(
+          data1,
+          data2,
+          data3,
+          data4,
+          data5,
+          data6,
+          data7,
+          data8,
+          data9,
+          data10,
+          "data from all"
+        );
         const validLikes = allLikes.filter((like) => like !== undefined);
-        setLikesBefore(validLikes)
-
+        setLikesBefore(validLikes);
       } catch (error) {
         // handle errors here
       }
     }
-    fetchData()
+    fetchData();
 
     // axios
     //   .request(genOpt("GET","https://tangible-spiced-lancer.glitch.me/api/instagram"))
@@ -82,11 +143,9 @@ const Button = ({ listData }) => {
     //     console.error(error);
     //   });
     console.log("button clicked");
-
-  }
+  };
 
   const getLikesAfter = () => {
-
     const genOpt = (code, key) => {
       const options = {
         method: "GET",
@@ -98,34 +157,97 @@ const Button = ({ listData }) => {
           "X-RapidAPI-Host": "instagram28.p.rapidapi.com",
         },
       };
-      return options
-    }
+      return options;
+    };
 
     async function fetchData() {
       try {
-        const [data1, data2, data3, data4, data5, data6, data7, data8, data9, data10] = await Promise.all([
-          listData.posts[0] && axios.request(genOpt(listData.posts[0].id, listData.posts[1].key)).then(res => res.data.items[0].like_count),
-          listData.posts[1] && axios.request(genOpt(listData.posts[1].id, listData.posts[1].key)).then(res => res.data.items[0].like_count),
-          listData.posts[2] && axios.request(genOpt(listData.posts[2].id, listData.posts[2].key)).then(res => res.data.items[0].like_count),
-          listData.posts[3] && axios.request(genOpt(listData.posts[3].id, listData.posts[3].key)).then(res => res.data.items[0].like_count),
-          listData.posts[4] && axios.request(genOpt(listData.posts[4].id, listData.posts[4].key)).then(res => res.data.items[0].like_count),
-          listData.posts[5] && axios.request(genOpt(listData.posts[5].id, listData.posts[5].key)).then(res => res.data.items[0].like_count),
-          listData.posts[6] && axios.request(genOpt(listData.posts[6].id, listData.posts[6].key)).then(res => res.data.items[0].like_count),
-          listData.posts[7] && axios.request(genOpt(listData.posts[7].id, listData.posts[7].key)).then(res => res.data.items[0].like_count),
-          listData.posts[8] && axios.request(genOpt(listData.posts[8].id, listData.posts[8].key)).then(res => res.data.items[0].like_count),
-          listData.posts[9] && axios.request(genOpt(listData.posts[9].id, listData.posts[9].key)).then(res => res.data.items[0].like_count),
+        const [
+          data1,
+          data2,
+          data3,
+          data4,
+          data5,
+          data6,
+          data7,
+          data8,
+          data9,
+          data10,
+        ] = await Promise.all([
+          listData.posts[0] &&
+            axios
+              .request(genOpt(listData.posts[0].id, listData.posts[0].key))
+              .then((res) => res.data.items[0].like_count),
+          listData.posts[1] &&
+            axios
+              .request(genOpt(listData.posts[1].id, listData.posts[1].key))
+              .then((res) => res.data.items[0].like_count),
+          listData.posts[2] &&
+            axios
+              .request(genOpt(listData.posts[2].id, listData.posts[2].key))
+              .then((res) => res.data.items[0].like_count),
+          listData.posts[3] &&
+            axios
+              .request(genOpt(listData.posts[3].id, listData.posts[3].key))
+              .then((res) => res.data.items[0].like_count),
+          listData.posts[4] &&
+            axios
+              .request(genOpt(listData.posts[4].id, listData.posts[4].key))
+              .then((res) => res.data.items[0].like_count),
+          listData.posts[5] &&
+            axios
+              .request(genOpt(listData.posts[5].id, listData.posts[5].key))
+              .then((res) => res.data.items[0].like_count),
+          listData.posts[6] &&
+            axios
+              .request(genOpt(listData.posts[6].id, listData.posts[6].key))
+              .then((res) => res.data.items[0].like_count),
+          listData.posts[7] &&
+            axios
+              .request(genOpt(listData.posts[7].id, listData.posts[7].key))
+              .then((res) => res.data.items[0].like_count),
+          listData.posts[8] &&
+            axios
+              .request(genOpt(listData.posts[8].id, listData.posts[8].key))
+              .then((res) => res.data.items[0].like_count),
+          listData.posts[9] &&
+            axios
+              .request(genOpt(listData.posts[9].id, listData.posts[9].key))
+              .then((res) => res.data.items[0].like_count),
         ]);
         console.log("data from all");
-        const allLikes = [data1, data2, data3, data4, data5, data6, data7, data8, data9, data10]
-        console.log(data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, "data from all");
+        const allLikes = [
+          data1,
+          data2,
+          data3,
+          data4,
+          data5,
+          data6,
+          data7,
+          data8,
+          data9,
+          data10,
+        ];
+        console.log(
+          data1,
+          data2,
+          data3,
+          data4,
+          data5,
+          data6,
+          data7,
+          data8,
+          data9,
+          data10,
+          "data from all"
+        );
         const validLikes = allLikes.filter((like) => like !== undefined);
-        setLikesAfter(validLikes)
-
+        setLikesAfter(validLikes);
       } catch (error) {
         // handle errors here
       }
     }
-    fetchData()
+    fetchData();
 
     // axios
     //   .request(genOpt("GET","https://tangible-spiced-lancer.glitch.me/api/instagram"))
@@ -137,16 +259,10 @@ const Button = ({ listData }) => {
     //     console.error(error);
     //   });
     console.log("button clicked");
-
-  }
-
-
-
-
-
+  };
 
   const handleBtnClick = () => {
-    getLikesAfter()
+    getLikesAfter();
     // const genOpt = (code, key) => {
     //   const options = {
     //     method: "GET",
@@ -199,11 +315,25 @@ const Button = ({ listData }) => {
 
   return (
     <div
-      onClick={handleBtnClick}
-      className="btn"
-      style={{ height: "100px", width: "100px", backgroundColor: likesBefore.length ? "green" : "red" }}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
     >
-      START
+      <div
+        onClick={handleBtnClick}
+        className="btn"
+        style={{
+          height: "140px",
+          width: "140px",
+          backgroundColor: likesBefore.length ? "green" : "red",
+        }}
+      >
+        START
+      </div>
+      <p>{selection}</p>
     </div>
   );
 };
